@@ -16,4 +16,15 @@ model Materia {
   texto        String
   linkAuxiliar String?
   inseridoEm   DateTime @default(now())
+  anexos       Anexo[]
+}
+
+model Anexo {
+  id          Int      @id @default(autoincrement())
+  nomeArquivo String
+  inseridoEm  DateTime @default(now())
+  
+  // Foreign Key
+  materiaId   Int
+  materia     Materia  @relation(fields: [materiaId], references: [id], onDelete: Cascade)
 }
