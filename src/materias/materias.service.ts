@@ -15,7 +15,8 @@ export class MateriasService {
 
   findAll() {
     return this.prisma.materia.findMany({
-      orderBy: { id: 'desc' }
+      orderBy: { id: 'desc' },
+      include: { anexos: true }
     });
   }
 
