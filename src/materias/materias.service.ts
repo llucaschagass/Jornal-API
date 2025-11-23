@@ -23,6 +23,7 @@ export class MateriasService {
   findOne(id: number) {
     return this.prisma.materia.findUnique({
       where: { id },
+      include: { anexos: true }
     });
   }
 
