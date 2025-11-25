@@ -22,6 +22,7 @@ model Materia {
 model Anexo {
   id          Int      @id @default(autoincrement())
   nomeArquivo String
+  tipoArquivo String
   inseridoEm  DateTime @default(now())
   
   // Foreign Key

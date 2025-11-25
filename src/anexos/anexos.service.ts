@@ -16,9 +16,16 @@ export class AnexosService {
       throw new BadRequestException('Matéria não encontrada!');
     }
 
-    const extensao = path.extname(fileName) || '.jpg';
-    const nomeFinal = `${Date.now()}${extensao}`;
-    
+    const ext = path.extname(fileName).toLowerCase();
+    const extensoesValidas = ['.png', '.jpg', '.jpeg'];
+
+    if (!extensoesValidas.includes(ext)) {
+      throw new BadRequestException('Formato inválido! Apenas PNG e JPG são permitidos.');
+    }
+
+    const tipoArquivo = ext === '.png' ? 'image/png' : 'image/jpeg';
+
+    const nomeFinal = `${Date.now()}${ext}`;
     const uploadDir = path.join(process.cwd(), 'anexos');
     const caminhoCompleto = path.join(uploadDir, nomeFinal);
 
@@ -38,6 +45,7 @@ export class AnexosService {
     return this.prisma.anexo.create({
       data: {
         nomeArquivo: nomeFinal,
+        tipoArquivo: tipoArquivo,
         materiaId: materiaId,
       },
     });
